@@ -12,12 +12,25 @@ const router = createRouter({
     {
       path: '/chats',
       name: 'chats',
-      // route level code-splitting
-      // this generates a separate chunk (ChatView.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/ChatView.vue')
+      component: () => import('../views/ChatView.vue'),
+      meta: { requiresAuth: true },
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  // Check if the route requires authentication
+  if (to.meta.requiresAuth) {
+    // Check if the user is authenticated
+    if (localStorage.getItem('token')) {
+      next(); // Continue to the route
+    } else {
+      // Redirect to the login page
+      next('/');
+    }
+  } else {
+    next(); // Continue to the route
+  }
+});
 
 export default router

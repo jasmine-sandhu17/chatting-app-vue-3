@@ -12,27 +12,43 @@
           <h1 class="sub-heading">
             Chats
           </h1>
-          <v-icon
-            color="#6C69FF"
-            size="32px"
-            @click="openCreateChatModal = true"
-          >
-            mdi-plus-box
-          </v-icon>
+          <NewChatGroup />
         </div>
-        <ChatGroupListing />
+        <ChatGroupListing
+          v-for="(chatGroup, index) in chatGroups"
+          :key="index"
+          :details="chatGroup"
+          @click="utilStore.selectedChat = chatGroup.name"
+        />
       </v-card>
     </v-col>
     <GroupChat />
-    <NewChatGroup />
   </v-row>
 </template>
 <script setup>
-import { VIcon} from 'vuetify/components';
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
+import { useUserStore } from '../store/modules/user';
+
 import ChatGroupListing from '../components/ChatGroupListing.vue'
 import GroupChat from '../components/GroupChat.vue'
 import NewChatGroup from '../components/NewChatGroup.vue'
 
-const openCreateChatModal = ref(false);
+const utilStore = useUserStore();
+const chatGroups = ref([])
+watchEffect(()=>{
+  if (utilStore.selectedChat) {
+    return utilStore.filterChatGroupData()
+  } else{
+    utilStore.selectedChat = utilStore.chatGroups[0].name;
+    return utilStore.filterChatGroupData();
+  }
+})
+watchEffect(()=>{
+  if (utilStore.filteredChatGroups.length) {
+    chatGroups.value = utilStore.filteredChatGroups
+  } else {
+    chatGroups.value = utilStore.chatGroups
+    
+  }
+})
 </script>
