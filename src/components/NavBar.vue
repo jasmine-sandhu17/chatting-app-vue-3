@@ -22,7 +22,7 @@
       </div>
       <v-avatar color="#9C9B9F">
         <h3 class="text-16">
-          CO
+          {{ utilStore.currentUserName }}
         </h3>
       </v-avatar>
     </div>
@@ -30,15 +30,13 @@
 </template>
 <script setup>
 import { VToolbar, VTextField } from 'vuetify/components';
-
+import { useUserStore } from '../store/modules/user';
+const utilStore = useUserStore();
 </script>
 <style>
 .v-toolbar__content,
 .v-toolbar__extension {
     padding: 4px 16px !important;
-}
-.w-100 {
-    width: 100%;
 }
 .w-50 {
     width: 50%;

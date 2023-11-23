@@ -66,29 +66,42 @@
   </v-row>
 </template>
 <script setup>
- import { VImg, VForm, VTextField, VBtn} from 'vuetify/components';
- import { ref, watchEffect } from 'vue'
- import useDebouncedRef from '../composables/useDebouncedRef'
- 
- const email =  useDebouncedRef('', 500)
- const isEmailValid = ref(false)
- const emailValidationError = ref('')
+  import { VImg, VForm, VTextField, VBtn} from 'vuetify/components';
+  import { onMounted, ref, watchEffect } from 'vue'
+  import useDebouncedRef from '../composables/useDebouncedRef'
+  import generateToken from '../services/auth';
+  import { useUserStore } from '../store/modules/user';
+  import { useRouter } from 'vue-router';
+  const utilStore = useUserStore();
+  const router = useRouter();
 
+  const email =  useDebouncedRef('', 500)
+  const isEmailValid = ref(false)
+  const emailValidationError = ref('')
 
-watchEffect(()=>{
-  const emailRegx =  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@\\"]+)*)|(\\".+\\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  if (email.value && email.value.match(emailRegx) === null) {
-    isEmailValid.value = false
-    return emailValidationError.value = 'Please enter a valid Email'
-  } else {
-    isEmailValid.value = true
-    return emailValidationError.value = ''
-  } 
-})
+  onMounted(()=>{
+    localStorage.setItem('token', null);
+    utilStore.isAuthenticated = false;
+  })
 
- const generateAuth = async()=> {
-  console.log('gello');
- }
+  watchEffect(()=>{
+    const emailRegx =  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@\\"]+)*)|(\\".+\\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    if (email.value && email.value.match(emailRegx) === null) {
+      isEmailValid.value = false
+      return emailValidationError.value = 'Please enter a valid Email'
+    } else {
+      isEmailValid.value = true
+      return emailValidationError.value = ''
+    } 
+  })
+
+  const generateAuth = async()=> {
+    const token = generateToken();
+    localStorage.setItem('token', token);
+    utilStore.currentUserName = email.value.charAt(0).toUpperCase()
+    router.push('/chats')
+    utilStore.isAuthenticated = true;
+  }
 </script>
 <style scoped>
 .main-heading{
