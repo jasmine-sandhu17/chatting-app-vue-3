@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row class="ma-0">
     <v-col
       cols="12"
       md="6"
@@ -7,7 +7,7 @@
     >
       <v-card
         height="100%"
-        class="px-8 py-15 login-content"
+        class="px-8 py-15 container-shadow"
       >
         <div class="d-flex flex-column align-center">
           <v-img
@@ -91,24 +91,9 @@ watchEffect(()=>{
  }
 </script>
 <style scoped>
-.login-content {
-  box-shadow: 2px 4px 36px 0px rgba(10, 5, 255, 0.16) !important;
-}
 .main-heading{
   color: #393640;
   font-size: 48px;
   font-weight: 700;
-}
-.sub-heading {
-  color: #393640;
-  font-size: 32px;
-  font-weight: 600;
-}
-.caption {
-  color:  #393640;
-  letter-spacing: -0.224px;
-}
-.text-16 {
-  font-size: 16px;
 }
 </style>
