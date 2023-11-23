@@ -4,54 +4,113 @@ import { defineStore } from 'pinia';
 export const useUserStore = defineStore('user', {
     state: () => ({
         isAuthenticated: false,
-        currentUserName: 'JV',
-        chatGroups: [],
-        messages:{
-            He: [
-                    {
-                        userName: 'JJ',
-                        groupName: 'Hello',
-                        messages: [
-                            {
-                                content: 'Hello',
-                                createdAt: '12:23AM'
-                            },
-                            {
-                                content: 'How are you doing',
-                                createdAt: '12:23AM'
-                            }
-                        ]
-                    },
-                    {
-                        userName: 'Oh',
-                        groupName: 'Hello',
-                        messages: [
-                            {
-                                content: 'Hello',
-                                createdAt: '12:23AM'
-                            },
-                            {
-                                content: 'How are you doing',
-                                createdAt: '12:23AM'
-                            }
-                        ]
-                    },
-                    {
-                        userName: 'JJ',
-                        groupName: 'Hello',
-                        messages: [
-                            {
-                                content: 'Hello',
-                                createdAt: '12:23AM'
-                            },
-                            {
-                                content: 'How are you doing',
-                                createdAt: '12:23AM'
-                            }
-                        ]
-                    },
-                ]
-        }
+        currentUserName: '',
+        chatGroups: [
+            {
+                name: 'Coding Pals',
+                createdAt:'4Feb2022'
+            },
+            {
+                name: 'Scouting',
+                createdAt: '4Feb2022'
+            },
+            {
+                name: 'Sports',
+                createdAt: '4Feb2022'
+            }
+        ],
+        allGroupChats:{
+            'Coding Pals': [
+                {
+                    userName: 'JJ',
+                    messages: [
+                        {
+                            content: 'Message Display',
+                            createdAt: '12:23AM'
+                        },
+                        {
+                            content: 'Neque sagittis at ut consequat dolor odio penatibus lacus vel.',
+                            createdAt: '12:23AM'
+                        }
+                    ]
+                },
+                {
+                    userName: 'Oh',
+                    messages: [
+                        {
+                            content: 'Viverra arcu fusce suspendisse tortor. Euismod lorem sed libero gravida.',
+                            createdAt: '12:23AM'
+                        },
+                        {
+                            content: 'Amet, in gravida aliquam duis maecenas',
+                            createdAt: '12:23AM'
+                        }
+                    ]
+                },
+                    
+            ],
+            'Scouting': [
+                {
+                    userName: 'JV',
+                    messages: [
+                        {
+                            content: 'Message Display',
+                            createdAt: '12:23AM'
+                        },
+                        {
+                            content: 'Neque sagittis at ut consequat dolor odio penatibus lacus vel.',
+                            createdAt: '12:23AM'
+                        }
+                    ]
+                },
+                {
+                    userName: 'Oh',
+                    messages: [
+                        {
+                            content: 'Viverra arcu fusce suspendisse tortor. Euismod lorem sed libero gravida.',
+                            createdAt: '12:23AM'
+                        },
+                        {
+                            content: 'Amet, in gravida aliquam duis maecenas',
+                            createdAt: '12:23AM'
+                        }
+                    ]
+                },
+
+            ],
+            'Sports': [
+                {
+                    userName: 'HI',
+                    messages: [
+                        {
+                            content: 'Message Display',
+                            createdAt: '12:23AM'
+                        },
+                        {
+                            content: 'Neque sagittis at ut consequat dolor odio penatibus lacus vel.',
+                            createdAt: '12:23AM'
+                        }
+                    ]
+                },
+                {
+                    userName: 'Oh',
+                    messages: [
+                        {
+                            content: 'Viverra arcu fusce suspendisse tortor. Euismod lorem sed libero gravida.',
+                            createdAt: '12:23AM'
+                        },
+                        {
+                            content: 'Amet, in gravida aliquam duis maecenas',
+                            createdAt: '12:23AM'
+                        }
+                    ]
+                },
+
+            ]
+        },
+        selectedGroupChat: [],
+        selectedChat: '',
+        filteredChatGroups: []
     }),
     actions: {
         updateChatGroups(name) {
@@ -59,21 +118,25 @@ export const useUserStore = defineStore('user', {
             name,
             createdAt: this.formatDate()
            }
-           this.chatGroups = [obj, ...this.chatGroups]
+           this.chatGroups = [obj, ...this.chatGroups];
+            this.allGroupChats[name] = [];
+            this.selectedChat = name;
         },
         updateMessages(msgOb){
-            const lastGroupMessageObj = this.messages.He[this.messages.He.length - 1]
-            const lastMessageBy = lastGroupMessageObj.userName;
-            if (lastMessageBy === this.currentUserName) {
+            const lastGroupMessageObj = this.selectedGroupChat[this.selectedGroupChat.length - 1];
+            const lastMessageInGroupBy = lastGroupMessageObj?.userName || '';
+            if (lastMessageInGroupBy === this.currentUserName) {
                 lastGroupMessageObj.messages = [...lastGroupMessageObj.messages, msgOb]
             }else{
                 const newMsgObj = {
                     userName: this.currentUserName,
-                        groupName: 'Hello',
                     messages: [msgOb]
                 }
-                this.messages.He = [...this.messages.He, newMsgObj]
+                this.allGroupChats[this.selectedChat] = [...this.allGroupChats[this.selectedChat], newMsgObj]
             }
+        },
+        filterChatGroupData(){
+            this.selectedGroupChat = this.allGroupChats[this.selectedChat]
         },
         formatDate(){
             const months = [

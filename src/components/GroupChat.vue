@@ -4,39 +4,47 @@
     class="secondary-bg pa-10"
   >
     <h1 class="sub-heading">
-      Scouting
+      {{ groupName }}
     </h1>
     <div class="d-flex flex-column mt-10 justify-end">
       <div
-        v-for="(message, index) in groupMessages"
+        v-for="(group, index) in groupMessages"
         :key="index"
-        class="d-flex mt-10"
+        class="mt-10"
       >
-        <v-avatar color="#9C9B9F">
-          <h3 class="text-16">
-            {{ message.userName }}
-          </h3>
-        </v-avatar>
-        <v-row class="d-flex flex-column">
-          <v-col cols="6">
-            <div class="d-flex flex-column w-100">
-              <div
-                v-for="(userMessage, indexMessages) in message.messages"
-                :key="indexMessages"
-                class="ml-4 no-white-space mb-2"
-              >
-                <div class="ma-2 d-flex flex-column w-100">
-                  <p class="text-16">
-                    {{ userMessage.content }}
-                  </p>
-                  <p class="text-right mt-1 pr-4 date">
-                    {{ userMessage.createdAt }}
-                  </p>
+        <div :class="[utilStore.currentUserName === group.userName ? 'flex-row-reverse' : '', 'd-flex']">
+          <v-avatar
+            color="#9C9B9F"
+            class="mx-2"
+          >
+            <h3 class="text-16">
+              {{ group.userName }}
+            </h3>
+          </v-avatar>
+          <v-row>
+            <v-col
+              :offset="utilStore.currentUserName === group.userName ? '6' : ''"
+              cols="6"
+            >
+              <div class="d-flex flex-column w-100">
+                <div
+                  v-for="(userMessage, indexMessages) in group.messages"
+                  :key="indexMessages"
+                  class="ml-4 no-white-space mb-2"
+                >
+                  <div class="ma-2 d-flex flex-column w-100">
+                    <p class="text-16">
+                      {{ userMessage.content }}
+                    </p>
+                    <span class="text-right mt-1 pr-4 date">
+                      {{ userMessage.createdAt }}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-          </v-col>
-        </v-row>
+            </v-col>
+          </v-row>
+        </div>
       </div>
     </div>
     <div class="mt-10 d-flex align-start">
@@ -68,10 +76,15 @@ import { VTextarea, VBtn, VAvatar } from 'vuetify/components';
 import { useUserStore } from '../store/modules/user';
 
 const utilStore = useUserStore();
-const groupMessages = ref(null)
-const newMessage = ref('')
+const groupMessages = ref(null);
+const newMessage = ref('');
+const groupName = ref('');
+watchEffect(()=>{
+  groupName.value = utilStore.selectedChat;
+})
+
 watchEffect(() => {
-  groupMessages.value = utilStore.messages.He
+  groupMessages.value = utilStore.selectedGroupChat
 })
 const addNewMessage = ()=> {
   let obj = {

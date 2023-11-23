@@ -11,6 +11,7 @@
           max-width="51px"
         />
         <v-text-field
+          v-model="enteredGroupName"
           placeholder="Search"
           variant="solo-filled"
           rounded="8px"
@@ -29,9 +30,19 @@
   </v-toolbar>
 </template>
 <script setup>
+import useDebouncedRef from '../composables/useDebouncedRef'
 import { VToolbar, VTextField } from 'vuetify/components';
 import { useUserStore } from '../store/modules/user';
+import { watchEffect } from 'vue';
 const utilStore = useUserStore();
+const enteredGroupName = useDebouncedRef('', 300);
+watchEffect(()=>{
+  if (enteredGroupName.value) {
+    utilStore.filteredChatGroups =  utilStore.chatGroups.filter((chatGroup)=>chatGroup.name.startsWith(enteredGroupName.value))
+  }else{
+    utilStore.filteredChatGroups = []
+  }
+})
 </script>
 <style>
 .v-toolbar__content,

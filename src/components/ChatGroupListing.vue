@@ -18,7 +18,7 @@
       </v-avatar>
       
       <h2 class="text-16 ml-4 text-capitalize">
-        {{ groupProps.details.name }}
+        {{ groupProps.details?.name }}
       </h2>
     </v-col>
     <v-col
@@ -38,7 +38,7 @@ import { computed } from 'vue'
     details: {type: Object, default: null},
   })
   const groupInitials = computed(() => {
-    if (groupProps.details.name.length > 2) {
+    if (groupProps.details?.name?.length > 2) {
     return  groupProps.details.name.slice(0, 2)
     } else {
       return groupProps.details.name

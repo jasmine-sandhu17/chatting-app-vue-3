@@ -81,7 +81,9 @@
 
   onMounted(()=>{
     localStorage.setItem('token', null);
+    localStorage.setItem('currentUserName', null);
     utilStore.isAuthenticated = false;
+    utilStore.currentUserName = null
   })
 
   watchEffect(()=>{
@@ -98,9 +100,11 @@
   const generateAuth = async()=> {
     const token = generateToken();
     localStorage.setItem('token', token);
-    utilStore.currentUserName = email.value.charAt(0).toUpperCase()
+    const emailInitials = email.value.slice(0, 2).toUpperCase();
+    localStorage.setItem('currentUserName', emailInitials);
     router.push('/chats')
     utilStore.isAuthenticated = true;
+    utilStore.currentUserName = emailInitials
   }
 </script>
 <style scoped>

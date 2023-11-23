@@ -18,6 +18,7 @@
           v-for="(chatGroup, index) in chatGroups"
           :key="index"
           :details="chatGroup"
+          @click="utilStore.selectedChat = chatGroup.name"
         />
       </v-card>
     </v-col>
@@ -35,6 +36,19 @@ import NewChatGroup from '../components/NewChatGroup.vue'
 const utilStore = useUserStore();
 const chatGroups = ref([])
 watchEffect(()=>{
- chatGroups.value = utilStore.chatGroups
+  if (utilStore.selectedChat) {
+    return utilStore.filterChatGroupData()
+  } else{
+    utilStore.selectedChat = utilStore.chatGroups[0].name;
+    return utilStore.filterChatGroupData();
+  }
+})
+watchEffect(()=>{
+  if (utilStore.filteredChatGroups.length) {
+    chatGroups.value = utilStore.filteredChatGroups
+  } else {
+    chatGroups.value = utilStore.chatGroups
+    
+  }
 })
 </script>

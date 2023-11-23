@@ -18,6 +18,7 @@ import Navbar from './components/NavBar.vue'
 import { useUserStore } from './store/modules/user';
 const utilStore = useUserStore();
 utilStore.isAuthenticated = localStorage.getItem('token') !== null ? true : false
+utilStore.currentUserName = localStorage.getItem('currentUserName') ?? null
 </script>
 <style>
 .wrapper {
