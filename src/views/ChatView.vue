@@ -14,13 +14,18 @@
           </h1>
           <NewChatGroup />
         </div>
-        <ChatGroupListing
-          v-for="(chatGroup, index) in chatGroups"
-          :key="index"
-          :details="chatGroup"
-          :selected-chat="utilStore.selectedChat"
-          @click="utilStore.selectedChat = chatGroup.name"
-        />
+        <div v-if="!utilStore.noMatchingGroup">
+          <ChatGroupListing
+            v-for="(chatGroup, index) in chatGroups"
+            :key="index"
+            :details="chatGroup"
+            :selected-chat="utilStore.selectedChat"
+            @click="utilStore.selectedChat = chatGroup.name"
+          />
+        </div>
+        <h1 class="mt-15 text-center primary-text">
+          No Group Found, try searching for another one
+        </h1>
       </v-card>
     </v-col>
     <GroupChat />
@@ -49,7 +54,11 @@ watchEffect(()=>{
     chatGroups.value = utilStore.filteredChatGroups
   } else {
     chatGroups.value = utilStore.chatGroups
-    
   }
 })
 </script>
+<style scoped>
+.primary-text {
+  color: #6C69FF;
+}
+</style>

@@ -19,6 +19,7 @@
           class="ml-3 mt-4"
           append-inner-icon="mdi-magnify"
           density="compact"
+          clearable
         />
       </div>
       <v-avatar color="#9C9B9F">
@@ -38,9 +39,11 @@ const utilStore = useUserStore();
 const enteredGroupName = useDebouncedRef('', 300);
 watchEffect(()=>{
   if (enteredGroupName.value) {
-    utilStore.filteredChatGroups =  utilStore.chatGroups.filter((chatGroup)=>chatGroup.name.startsWith(enteredGroupName.value.toLowerCase()))
+    utilStore.filteredChatGroups =  utilStore.chatGroups.filter((chatGroup)=>chatGroup.name.startsWith(enteredGroupName.value.toLowerCase()));
+    utilStore.noMatchingGroup =  utilStore.filteredChatGroups.length ? false : true;
   }else{
-    utilStore.filteredChatGroups = []
+    utilStore.filteredChatGroups = [];
+    utilStore.noMatchingGroup = false;
   }
 })
 </script>

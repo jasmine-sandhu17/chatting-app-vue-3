@@ -110,7 +110,8 @@ export const useUserStore = defineStore('user', {
         },
         selectedGroupChat: [],
         selectedChat: '',
-        filteredChatGroups: []
+        filteredChatGroups: [],
+        noMatchingGroup: false
     }),
     actions: {
         updateChatGroups(name) {
