@@ -66,16 +66,17 @@
   </v-row>
 </template>
 <script setup>
-  import { VImg, VForm, VTextField, VBtn} from 'vuetify/components';
   import { onMounted, ref, watchEffect } from 'vue'
+  import { VImg, VForm, VTextField, VBtn} from 'vuetify/components';
   import useDebouncedRef from '../composables/useDebouncedRef'
   import generateToken from '../services/auth';
   import { useUserStore } from '../store/modules/user';
   import { useRouter } from 'vue-router';
+  
   const utilStore = useUserStore();
   const router = useRouter();
 
-  const email =  useDebouncedRef('', 500)
+  const email =  useDebouncedRef('', 200)
   const isEmailValid = ref(false)
   const emailValidationError = ref('')
 

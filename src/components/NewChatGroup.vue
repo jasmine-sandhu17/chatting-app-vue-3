@@ -49,6 +49,7 @@
         block
         rounded="8px"
         size="large"
+        :disabled="groupName.length < 3"
         @click="addNewChatGroup"
       >
         Create

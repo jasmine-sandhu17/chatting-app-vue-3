@@ -37,7 +37,7 @@
                       :key="indexMessages"
                       class="ml-4 no-white-space mb-2"
                     >
-                      <div class="ma-2 d-flex flex-column w-100">
+                      <div class="pa-2 d-flex flex-column w-100">
                         <p class="text-16 text-center">
                           {{ userMessage.content }}
                         </p>
