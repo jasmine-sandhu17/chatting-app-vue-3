@@ -22,6 +22,6 @@ utilStore.currentUserName = localStorage.getItem('currentUserName') ?? null
 </script>
 <style>
 .wrapper {
-   height: 100% !important;
+  height: 100% !important;
 }
 </style>

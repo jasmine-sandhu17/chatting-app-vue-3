@@ -1,7 +1,7 @@
 <template>
   <v-row
     v-if="groupProps"
-    class="d-flex align-center mt-10 chart-groups-hover"
+    :class="[groupProps.selectedChat === groupProps.details?.name && 'secondary-bg', 'd-flex align-center mt-10 chart-groups-hover']"
   >
     <v-col
       cols="8"
@@ -36,6 +36,7 @@ import { computed } from 'vue'
   import { VAvatar } from 'vuetify/components';
   const groupProps = defineProps({
     details: {type: Object, default: null},
+    selectedChat: { type: String, default: null },
   })
   const groupInitials = computed(() => {
     if (groupProps.details?.name?.length > 2) {

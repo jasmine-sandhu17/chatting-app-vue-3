@@ -4,7 +4,7 @@
     class="container-shadow pa-2"
   >
     <div class="d-flex justify-space-between align-center w-100">
-      <div class="d-flex align-center w-50">
+      <div class="d-flex align-center w-30">
         <v-img
           src="/logo.svg"
           class="ml-2"
@@ -38,7 +38,7 @@ const utilStore = useUserStore();
 const enteredGroupName = useDebouncedRef('', 300);
 watchEffect(()=>{
   if (enteredGroupName.value) {
-    utilStore.filteredChatGroups =  utilStore.chatGroups.filter((chatGroup)=>chatGroup.name.startsWith(enteredGroupName.value))
+    utilStore.filteredChatGroups =  utilStore.chatGroups.filter((chatGroup)=>chatGroup.name.startsWith(enteredGroupName.value.toLowerCase()))
   }else{
     utilStore.filteredChatGroups = []
   }
@@ -49,7 +49,7 @@ watchEffect(()=>{
 .v-toolbar__extension {
     padding: 4px 16px !important;
 }
-.w-50 {
-    width: 50%;
+.w-30 {
+    width: 30%;
 }
 </style>

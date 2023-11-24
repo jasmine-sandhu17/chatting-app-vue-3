@@ -41,6 +41,7 @@
         variant="outlined"
         rounded="8px"
         density="compact"
+        @keyup.enter="addNewChatGroup"
       />
       <v-btn
         class="text-none font-weight-bold text-16"
@@ -48,7 +49,7 @@
         block
         rounded="8px"
         size="large"
-        @click="addNewChatGroup()"
+        @click="addNewChatGroup"
       >
         Create
       </v-btn>
@@ -64,7 +65,7 @@ const utilStore = useUserStore();
 const openCreateChatModal = ref(false);
 const groupName = ref('')
 const addNewChatGroup = ()=> {
-  utilStore.updateChatGroups(groupName.value);
+  utilStore.updateChatGroups(groupName.value.toLowerCase());
   groupName.value = ''
   openCreateChatModal.value = false
 }

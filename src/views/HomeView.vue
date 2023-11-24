@@ -100,7 +100,7 @@
   const generateAuth = async()=> {
     const token = generateToken();
     localStorage.setItem('token', token);
-    const emailInitials = email.value.slice(0, 2).toUpperCase();
+    const emailInitials = email.value.slice(0,1).toUpperCase();
     localStorage.setItem('currentUserName', emailInitials);
     router.push('/chats')
     utilStore.isAuthenticated = true;

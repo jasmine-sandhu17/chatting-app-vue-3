@@ -7,22 +7,22 @@ export const useUserStore = defineStore('user', {
         currentUserName: '',
         chatGroups: [
             {
-                name: 'Coding Pals',
+                name: 'coding pals',
                 createdAt:'4Feb2022'
             },
             {
-                name: 'Scouting',
+                name: 'scouting',
                 createdAt: '4Feb2022'
             },
             {
-                name: 'Sports',
+                name: 'sports',
                 createdAt: '4Feb2022'
             }
         ],
         allGroupChats:{
-            'Coding Pals': [
+            'coding pals': [
                 {
-                    userName: 'JJ',
+                    userName: 'J',
                     messages: [
                         {
                             content: 'Message Display',
@@ -35,7 +35,7 @@ export const useUserStore = defineStore('user', {
                     ]
                 },
                 {
-                    userName: 'Oh',
+                    userName: 'O',
                     messages: [
                         {
                             content: 'Viverra arcu fusce suspendisse tortor. Euismod lorem sed libero gravida.',
@@ -49,58 +49,58 @@ export const useUserStore = defineStore('user', {
                 },
                     
             ],
-            'Scouting': [
+            'scouting': [
                 {
-                    userName: 'JV',
+                    userName: 'G',
                     messages: [
                         {
-                            content: 'Message Display',
+                            content: 'Message Display!!!!!!!',
                             createdAt: '12:23AM'
                         },
                         {
-                            content: 'Neque sagittis at ut consequat dolor odio penatibus lacus vel.',
+                            content: 'Neque sagittis at ut ',
                             createdAt: '12:23AM'
                         }
                     ]
                 },
                 {
-                    userName: 'Oh',
+                    userName: 'H',
                     messages: [
                         {
-                            content: 'Viverra arcu fusce suspendisse tortor. Euismod lorem sed libero gravida.',
+                            content: ' Euismod lorem sed libero gravida.',
                             createdAt: '12:23AM'
                         },
                         {
-                            content: 'Amet, in gravida aliquam duis maecenas',
+                            content: 'Amet',
                             createdAt: '12:23AM'
                         }
                     ]
                 },
 
             ],
-            'Sports': [
+            'sports': [
                 {
-                    userName: 'HI',
+                    userName: 'Q',
                     messages: [
                         {
-                            content: 'Message Display',
+                            content: 'Display',
                             createdAt: '12:23AM'
                         },
                         {
-                            content: 'Neque sagittis at ut consequat dolor odio penatibus lacus vel.',
+                            content: 'odio penatibus lacus vel.',
                             createdAt: '12:23AM'
                         }
                     ]
                 },
                 {
-                    userName: 'Oh',
+                    userName: 'K',
                     messages: [
                         {
-                            content: 'Viverra arcu fusce suspendisse tortor. Euismod lorem sed libero gravida.',
+                            content: 'Viverra arcu fusce suspendisse tortor.',
                             createdAt: '12:23AM'
                         },
                         {
-                            content: 'Amet, in gravida aliquam duis maecenas',
+                            content: 'aliquam duis maecenas',
                             createdAt: '12:23AM'
                         }
                     ]

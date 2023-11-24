@@ -18,6 +18,7 @@
           v-for="(chatGroup, index) in chatGroups"
           :key="index"
           :details="chatGroup"
+          :selected-chat="utilStore.selectedChat"
           @click="utilStore.selectedChat = chatGroup.name"
         />
       </v-card>
